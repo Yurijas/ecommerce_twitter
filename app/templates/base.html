@@ -1,0 +1,72 @@
+<!-- Inheriting base html from boostraps base file, which includes all neessary html tags -->
+{% extends 'bootstrap/base.html' %}
+
+
+<!-- use blocks to customize base and other html files -->
+
+{% block title %}
+  E-Commerce
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}  <!--inherite the css of bootstrap-->
+  <link rel="stylesheet" href="../static/css/main.css">
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}  <!--Javascript?-->
+{% endblock %}
+
+{% block navbar %}
+<div class="row">
+  <div class="col-md-12">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{ url_for('index') }}">E-Commerce</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {% if title == 'Home' %}
+            <li class="nav-item active">
+          {% else %}
+            <li class="nav-item">
+          {% endif %}
+            <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {% if title == 'Posts' %}
+            <li class="nav-item active">
+          {% else %}
+            <li class="nav-item">
+          {% endif %}
+            <a class="nav-link" href="{{ url_for('posts') }}">Posts</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div> <!--ends col-md-12 for nav-->
+</div> <!--ends row for nav-->
+{% endblock %}
+
+{% block content %}
+  <!-- block app content allows us to keep base content that is similar to all files, i.e. a footer -->
+  {% block app_content %}{% endblock %}
+
+
+  <footer>
+    <div class="row top-margin-lg">
+      <div class="col-md-4">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div> <!--ends col-md-4 for footer-->
+      <div class="col-md-4">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div> <!--ends col-md-4 for footer-->
+      <div class="col-md-4">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div> <!--ends col-md-4 for footer-->
+    </div> <!--ends row for footer-->
+  </footer>
+
+{% endblock %}
