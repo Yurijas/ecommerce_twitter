@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, PasswordField, IntegerField
-from wtforms.validators import DataRequired, Email, EqualTo
+from flask import flash
+from app.models import User
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
 
@@ -31,4 +33,14 @@ class RegisterForm(FlaskForm):
     submit = SubmitField('Register')
 
     # setup validation methods to be checked when form is submitted
-    # TODO: create validation methods
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
+            flash('Sorry but those credentials are already in use.')
+            raise ValidationError('Username already taken.')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            flash('Sorry but those credentials are already in use.')
+            raise ValidationError('E-mail already taken.')

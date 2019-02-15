@@ -3,6 +3,14 @@ body {
   overflow-x: hidden;
 }
 
+.messages {
+  position: fixed;
+  top: 70px;
+  left: 10px;
+  color: red;
+  font-weight: bold;
+}
+
 .top-margin-lg {
   margin-top: 100px;
 }
