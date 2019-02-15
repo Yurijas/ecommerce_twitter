@@ -19,9 +19,9 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # app variables for Login
-# login = LoginManager(app)
+login = LoginManager(app)
 # when a page requires somebody to login, the applicatio will instead route them to the correct route described below
-# login.logi_view = 'login'
+login.logi_view = 'login'
 
 # one app variable is creating import the routes to load home page
 from app import routes
