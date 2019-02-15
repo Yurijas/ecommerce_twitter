@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block title %}
+  {{ super() }} -Posts
+{% endblock %}
+
+{% block app_content %}
+  <div class="container top-margin-lg">
+    <div class="row">
+      <!-- starts profile section -->
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-img-top">
+            <img src="http://placehold.it/250x250" alt="Profile Image" class="product-img">
+          </div>
+          <div class="card-title">Bilbo Baggins</div>
+          <div class="card-subtitle">@bilbobaggins</div>
+          <div class="card-text">
+            <p>I live in the shire, love going on long walks to mordor. </p>
+          </div>
+          <button class="btn btn-primary">Follow</button>
+        </div>
+      </div> <!-- ends col-md-3 -->
+      <!-- ends profile section -->
+
+      <!-- starts tweet section -->
+      <div class="col-md-8 offset-md-1">
+        <!-- start post form -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              {{ wtf.quick_form(form) }}
+            </div> <!-- ends card -->
+          </div> <!-- ends col-md-12 -->
+        </div> <!-- ends row -->
+        <!-- ends post form -->
+
+        {% for post in tweets %}
+          <div class="row top-margin-sm">
+            <div class="col-md-12">
+              <div class="card">
+                <img src="http://placehold.it/30x30" alt="Profile Image" class="prof_pic">
+                <p class="card-subtitle">{{ post.date_posted }}</p>
+                <h4>{{ post.tweet }}</h4>
+              </div>
+            </div> <!-- ends col-md-12 for tweet -->
+          </div> <!-- ends row for tweet -->
+        {% endfor %}
+      </div> <!-- ends col-md-8 -->
+      <!-- ends tweet section -->
+
+    </div> <!-- ends row -->
+  </div> <!-- ends container -->
+{% endblock %}

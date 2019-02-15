@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, url_for, redirect
-from app.forms import TitleForm, PostForm
+from app.forms import TitleForm, PostForm, LoginForm, RegisterForm
 from app.models import Post
 
 
@@ -61,3 +61,13 @@ def title():
         return redirect(url_for('index', header=header))
 
     return render_template('title.html', title='Title', form=form )
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    return render_template('register.html', title='Register', form=form)
