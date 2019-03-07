@@ -107,6 +107,26 @@ var products = [
 
       // insert that total into all places that render the total price
       $('.total').text(`$${total}`);
+
+      //convert total to cents
+      total = total * 100;
+      total = Math.ceil(total);
+
+      // insert form into id of pay
+      let html = `
+      <form action="/pay/?amount=${total}" method="POST">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_SBvNgQvCWDApohiofKwLw5eb"
+          data-amount="${total}"
+          data-name="Demo Site"
+          data-description="Widget"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto">
+        </script>
+      </form>`;
+
+      $('#pay').html(html);
     }
 
     function countDuplicates(id) {

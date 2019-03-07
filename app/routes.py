@@ -3,6 +3,9 @@ from flask import render_template, url_for, redirect, flash, request
 from app.forms import TitleForm, PostForm, LoginForm, RegisterForm
 from app.models import Post, User
 from flask_login import current_user, login_user, logout_user, login_required
+import stripe
+
+stripe.api_key = app.config['STRIPE_SECRET_KEY']
 
 
 @app.route('/')
@@ -43,14 +46,32 @@ def index(header=''):
 def checkout():
     return render_template('checkout.html', title='Checkout')
 
-@app.route('/pay', methods=['GET', 'POST'])
+@app.route('/pay/', methods=['GET', 'POST'])
 def pay():
-    print(request.form)
+    amount = request.args.get('amount')
     email = request.form['stripeEmail']
-    return redirect(url_for('thanks', amount=0, email=email))
+
+    # create a stripe customer using stripe class
+    customer = stripe.Customer.create (
+        email=email,
+        source=request.form['stripeToken']
+    )
+
+    # create a stripe charge
+    charge = stripe.Charge.create (
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='This was a test purchase for some test prducts'
+    )
+
+    return redirect(url_for('thanks', amount=amount, email=email))
 
 @app.route('/thanks/<amount>/<email>', methods=['GET'])
 def thanks(amount, email):
+    # convert amount back to dollars
+    amount = int(amount) / 100
+
     return render_template('thanks.html', amount=amount, email=email, title='Thanks')
 
 @login_required #decorator

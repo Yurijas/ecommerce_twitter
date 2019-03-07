@@ -19,5 +19,7 @@ class Config(object):
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    STRIPE_SECRET_KEY = 'sk_test_UXYpFdyYNEpRAH7CH78IkSmY'
+
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
     'postgresql://postgres:venezuel@localhost:5432/ecommerce'
