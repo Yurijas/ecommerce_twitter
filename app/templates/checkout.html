@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ super() }} -Checkout
+{% endblock %}
+
+{% block app_content %}
+  <div class="container top-margin-lg">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>{{ title }}</h1>
+        <h3 id="empty"></h3>
+      </div> <!-- ends col-md-12 -->
+    </div> <!-- ends row -->
+    <div class="row">
+      <div class="col-md-12" id="cart">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>$</th>
+              <th>Rem.</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- create a row for each product in cart -->
+          </tbody>
+          <tfoot>
+          <tr>
+            <th colSpan="2">Total:</th>
+            <th colSpan="2" class="total">$0.00</th>
+          </tr>
+          <tr>
+            <th colSpan="2"></th>
+            <th>
+              <!-- paste payment stripe -->
+              <form action="{{ url_for('pay') }}" method="POST">
+                <script
+                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="pk_test_SBvNgQvCWDApohiofKwLw5eb"
+                  data-amount="999"
+                  data-name="Demo Site"
+                  data-description="Widget"
+                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                  data-locale="auto">
+                </script>
+              </form>
+            </th>
+          </tr>
+          </tfoot>
+        </table>
+      </div> <!-- ends col-md-12 -->
+    </div> <!-- ends row -->
+  </div> <!-- ends container -->
+{% endblock %}

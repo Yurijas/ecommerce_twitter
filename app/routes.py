@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, url_for, redirect, flash
+from flask import render_template, url_for, redirect, flash, request
 from app.forms import TitleForm, PostForm, LoginForm, RegisterForm
 from app.models import Post, User
 from flask_login import current_user, login_user, logout_user, login_required
@@ -9,29 +9,49 @@ from flask_login import current_user, login_user, logout_user, login_required
 @app.route('/index')
 @app.route('/index/<header>', methods=['GET'])
 def index(header=''):
-    products = {
-        1001: {
+    products = [
+        {
+            'id': 1001,
             'title': 'Soap',
             'price': 3.98,
             'desc': 'Very clean soapy soap, descriptive text'
         },
-        1002: {
+        {
+            'id': 1002,
             'title': 'Grapes',
             'price': 4.56,
             'desc': 'A bundle of grapey grapes, yummy'
         },
-        1003: {
+        {
+            'id': 1003,
             'title': 'Pickles',
             'price': 5.67,
-            'desc': 'A jar of pickles is pickley'
+            'desc': 'A jar of pickles is pickly'
         },
-        1004: {
+        {
+            'id': 1004,
             'title': 'Juice',
             'price': 2.68,
             'desc': 'Yummy orange juice'
         }
-    }
+    ]
+
     return render_template('index.html', header=header, products=products, title='Home')
+
+
+@app.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    return render_template('checkout.html', title='Checkout')
+
+@app.route('/pay', methods=['GET', 'POST'])
+def pay():
+    print(request.form)
+    email = request.form['stripeEmail']
+    return redirect(url_for('thanks', amount=0, email=email))
+
+@app.route('/thanks/<amount>/<email>', methods=['GET'])
+def thanks(amount, email):
+    return render_template('thanks.html', amount=amount, email=email, title='Thanks')
 
 @login_required #decorator
 @app.route('/posts/<username>', methods=['GET', 'POST'])

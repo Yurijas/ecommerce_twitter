@@ -41,7 +41,7 @@
 
     <!-- begin products being shown -->
     <!-- loop.index if how to create a row for every 3 items -->
-    {% for k, v in products.items() %}  <!--.items() is key&value-->
+    {% for product in products %}  <!--.items() is key&value-->
       {% if loop.index == 1 or loop.index % 3 == 1 %}
         <div class="row top-margin-lg">
       {% endif %}
@@ -50,12 +50,12 @@
             <div class="card-img-top">
               <img src="http://placehold.it/250x250" alt="Placeholder Image" class="product-img">
             </div>
-            <div class="card-title">{{ loop.index }}</div>
-            <div class="card-subtitle">${{ v.price }}</div>
+            <div class="card-title">{{ product.title }}</div>
+            <div class="card-subtitle">${{ product.price }}</div>
             <div class="card-text">
-              <p>{{ v.desc }}</p>
+              <p>{{ product.desc }}</p>
             </div>
-            <button class="btn btn-primary" onClick="console.log({{ k }})">Add to Cart</button> <!--(added))-->
+            <button class="btn btn-primary" onClick="addItem({{ product.id }})">Add to Cart</button> <!--(added))-->
           </div> <!--ends card-->
         </div> <!--ends col-md-4 for card-->
       {% if loop.index % 3 == 0 or loop.length == loop.index %}
